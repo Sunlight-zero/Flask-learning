@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8" />
+    {% if title %}
+    <title>{{ title }} - 佩帕仓库</title>
+    {% else %}
+    <title>欢迎来到佩帕仓库</title>
+    {% endif %}
+</head>
+<body>
+    <div>Paper Warehouse: <a href='/index'>首页</a></div>
+    <hr />
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
