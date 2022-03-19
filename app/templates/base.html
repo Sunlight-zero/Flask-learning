@@ -7,10 +7,26 @@
     {% else %}
     <title>欢迎来到佩帕仓库</title>
     {% endif %}
+    {% block css %}
+    {% endblock %}
 </head>
 <body>
-    <div>Paper Warehouse: <a href='/index'>首页</a></div>
+    <div>
+        Paper Warehouse:
+        <a href="{{ url_for('index') }}">首页</a>
+        <a href="{{ url_for('login') }}">登录</a>
+        </div>
     <hr />
+    {# 使用with结构来获得一个临时变量 #}
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     {% block content %}
     {% endblock %}
 </body>
