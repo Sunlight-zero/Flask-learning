@@ -14,7 +14,11 @@
     <div>
         Paper Warehouse:
         <a href="{{ url_for('index') }}">首页</a>
+        {% if current_user.is_anonymous %}
         <a href="{{ url_for('login') }}">登录</a>
+        {% else %}
+        <a href="{{ url_for('logout')}}">退出登录</a>
+        {% endif %}
         </div>
     <hr />
     {# 使用with结构来获得一个临时变量 #}
