@@ -4,6 +4,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
+# 用于输入用户的ID，返回用户对象
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
