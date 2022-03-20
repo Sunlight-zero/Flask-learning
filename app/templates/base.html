@@ -7,8 +7,8 @@
     {% else %}
     <title>欢迎来到佩帕仓库</title>
     {% endif %}
-    {% block css %}
-    {% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" type="text/css"/>
+    {% block css %}{% endblock %}
 </head>
 <body>
     <div>
@@ -16,6 +16,8 @@
         <a href="{{ url_for('index') }}">首页</a>
         {% if current_user.is_anonymous %}
         <a href="{{ url_for('login') }}">登录</a>
+        |
+        <a href="{{ url_for('register') }}">注册</a>
         {% else %}
         <a href="{{ url_for('logout')}}">退出登录</a>
         {% endif %}
