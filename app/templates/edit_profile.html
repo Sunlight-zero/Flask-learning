@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block css%}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/edit_profile.css') }}"/>
+{% endblock %}
+{% block content %}
+    <h1>个人资料修改</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.username.label }}<br/>
+            {{ form.username(size=32) }}<br/>
+            {% for error in form.username.errors %}
+            <span class="error-text">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.about_me.label }}<br/>
+            {{ form.about_me(id="about-me-textbox") }}<br/>
+            {% for error in form.about_me.errors %}
+            <span class="error-text">{{ error }}</span>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit }}</p>
+    </form>
+{% endblock %}
