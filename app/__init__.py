@@ -13,4 +13,4 @@ login = LoginManager(app)
 login.localize_callback
 login.login_view = 'login'
 
-from app import routes, models, localization
+from app import routes, models, localization, errors
