@@ -4,8 +4,9 @@
     <h1>Hello, {{ current_user.username }}</h1>
     <p>欢迎来到佩帕仓库！</p>
     {% for post in posts %}
-    <p>{{ post.author.username }}：{{ post.body }}</p>
+        {% include "_post.html" %}
     {% endfor %}
+    {% if form %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
         <p>
@@ -17,4 +18,5 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
+    {% endif %}
 {% endblock %}

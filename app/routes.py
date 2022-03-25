@@ -34,6 +34,12 @@ def login():
         return redirect(url_for('index'))
     return render_template('login.html', title='登录', form=form)
 
+@app.route('/explore')
+@login_required
+def explore():
+    posts = Post.query.order_by(Post.timestamp.desc()).all()
+    return render_template('index.html', title='浏览', posts=posts)
+
 @app.route('/logout')
 def logout():
     logout_user()
@@ -57,10 +63,7 @@ def register():
 @login_required
 def user(username):
     user = User.query.filter_by(username=username).first_or_404()
-    posts = [
-        {'author': user, 'body': 'Happy mathematical analysis!'},
-        {'author': user, 'body': 'Fucking real analysis!'}
-    ]
+    posts = user.posts.all()
     form = EmptyForm()
     return render_template('user.html', user=user, posts=posts, form=form)
 

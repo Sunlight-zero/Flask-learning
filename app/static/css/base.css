@@ -6,3 +6,31 @@
     width: 30em;
     height: 4em;
 }
+
+.post {
+    display: flex;
+}
+
+div.post-user {
+    width: 64px;
+    text-align: center;
+}
+
+a:hover.post-user {
+    text-decoration: none;
+    color: #66CCFF;
+    line-height: 100%;
+}
+
+img.post-avatar {
+    height: 64px;
+    width: 64px;
+}
+
+div.post-text {
+    margin-left: 20px;
+}
+
+div.post-time {
+    color: gray;
+}

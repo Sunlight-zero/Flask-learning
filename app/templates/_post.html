@@ -1,0 +1,17 @@
+    <div class="post">
+        <div class="post-user">
+            <img class="post-avatar"/>
+            <a href="{{ url_for('user', username=post.author.username) }}">
+                {{ post.author.username }}
+            </a>
+        </div>
+        <div class="post-text">
+            <div class="post-time">
+                {{ post.timestamp }}
+            </div>
+            <div class="post-content">
+                {{ post.body }}
+            </div>
+        </div>
+    </div>
+    

@@ -19,7 +19,7 @@
     <p>个人简介：{{ user.about_me }}</p>
     <p>关注：{{ user.followed.count() }}，粉丝：{{ user.followers.count() }}</p>
     <p>TA的博客：</p>
-    {% if not post %}<p>（空）</p>{% else %}
+    {% if not posts %}<p>（空）</p>{% else %}
     {% for post in posts %}
     <p>
         {{ post.author.username }} ： <strong>{{ post.body }}</strong>
