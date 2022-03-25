@@ -49,3 +49,8 @@ class EditProfileForm(FlaskForm):
 
 class EmptyForm(FlaskForm):
     submit = SubmitField('提交')
+
+class PostForm(FlaskForm):
+    post = TextAreaField('分享你的心情：', validators=[
+        DataRequired(), Length(min=0, max=140)])
+    submit = SubmitField('发表博客')

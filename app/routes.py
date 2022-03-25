@@ -2,14 +2,22 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
 from app import app, db
-from app.forms import LoginForm, RegisrationForm, EditProfileForm, EmptyForm
-from app.models import User
+from app.forms import LoginForm, PostForm, RegisrationForm, EditProfileForm, EmptyForm
+from app.models import User, Post
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods=['GET', 'POST'])
+@app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    return render_template('index.html', title='主页')
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(author=current_user, body=form.post.data)
+        db.session.add(post)
+        db.session.commit()
+        flash('你的博客已提交')
+        return redirect(url_for('index'))
+    posts = current_user.followed_posts().all()
+    return render_template('index.html', title='主页', posts=posts, form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -84,6 +92,7 @@ def edit_profile():
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='修改个人信息', form=form)
 
+@login_required
 @app.route('/follow/<username>', methods=['POST'])
 def follow(username):
     form = EmptyForm()
@@ -104,6 +113,7 @@ def follow(username):
         return redirect(url_for('user', username=username))
     return redirect(url_for('index'))
 
+@login_required
 @app.route('/unfollow/<username>', methods=['POST'])
 def unfollow(username):
     form = EmptyForm

@@ -1,3 +1,8 @@
 .error-text {
     color: red;
 }
+
+.post-textbox {
+    width: 30em;
+    height: 4em;
+}
