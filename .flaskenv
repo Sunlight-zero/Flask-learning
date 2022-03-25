@@ -1,1 +1,2 @@
 FLASK_APP=paperwarehouse.py
+FLASK_ENV=development

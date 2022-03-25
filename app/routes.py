@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user, login_required
 from datetime import datetime
 from app import app, db
-from app.forms import LoginForm, RegisrationForm, EditProfileForm
+from app.forms import LoginForm, RegisrationForm, EditProfileForm, EmptyForm
 from app.models import User
 
 @app.route('/')
@@ -53,7 +53,8 @@ def user(username):
         {'author': user, 'body': 'Happy mathematical analysis!'},
         {'author': user, 'body': 'Fucking real analysis!'}
     ]
-    return render_template('user.html', user=user, posts=posts)
+    form = EmptyForm()
+    return render_template('user.html', user=user, posts=posts, form=form)
 
 @app.before_request
 def before_request():
@@ -82,4 +83,43 @@ def edit_profile():
         form.username.data = current_user.username
         form.about_me.data = current_user.about_me
     return render_template('edit_profile.html', title='修改个人信息', form=form)
-        
+
+@app.route('/follow/<username>', methods=['POST'])
+def follow(username):
+    form = EmptyForm()
+    if form.validate_on_submit:
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash(f'错误：未知用户{username}')
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash('错误：不能关注自己')
+            return redirect(url_for('index'))
+        if current_user.is_following(user):
+            flash(f'您已经关注过 {username}')
+        else:
+            current_user.follow(user)
+            db.session.commit()
+            flash(f'已关注 {username}')
+        return redirect(url_for('user', username=username))
+    return redirect(url_for('index'))
+
+@app.route('/unfollow/<username>', methods=['POST'])
+def unfollow(username):
+    form = EmptyForm
+    if form.validate_on_submit:
+        user = User.query.filter_by(username=username).first()
+        if user is None:
+            flash(f'错误：找不到用户 {username}')
+            return redirect(url_for('index'))
+        if user == current_user:
+            flash(f'错误：不能关注自己')
+            return redirect(url_for('index'))
+        if not current_user.is_following(user):
+            flash('您尚未关注该用户')
+        else:
+            current_user.unfollow(user)
+            db.session.commit()
+            flash(f'成功取消对 {username} 的关注')
+        return redirect(url_for('user', username=username))
+

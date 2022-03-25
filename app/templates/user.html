@@ -4,9 +4,20 @@
     <h1>{{ user.username }}的主页</h1>
     {% if user == current_user %}
     <a href="{{ url_for('edit_profile')}}">修改个人信息</a>
-    {%endif%}
+    {% elif not current_user.is_following(user) %}
+    <form action="{{ url_for('follow', username=user.username) }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(value="关注") }}
+    </form>
+    {% else %}
+    <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+        {{ form.hidden_tag() }}
+        {{ form.submit(value="取关") }}
+    </form>
+    {% endif %}
     <p>上次登录时间：{{ user.last_seen }}</p>
     <p>个人简介：{{ user.about_me }}</p>
+    <p>关注：{{ user.followed.count() }}，粉丝：{{ user.followers.count() }}</p>
     <p>TA的博客：</p>
     {% if not post %}<p>（空）</p>{% else %}
     {% for post in posts %}
