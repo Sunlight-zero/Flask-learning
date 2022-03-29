@@ -12,3 +12,6 @@ class Config(object):
     # SQLALCHEMY_DATABASE_URL = os.environ.get('DATABASE_URL')
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # 每个页面显示的博文数
+    POSTS_PER_PAGE = 3
