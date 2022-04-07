@@ -15,3 +15,12 @@ class Config(object):
 
     # 每个页面显示的博文数
     POSTS_PER_PAGE = 3
+
+    # 邮件服务器相关
+    ENABLE_SENDING_ERROR_MAILS = False
+    MAIL_SERVER = None
+    MAIL_PORT = 25
+    MAIL_USERNAME = None
+    # 对于163、QQ等邮箱而言，这里的密码不是登录密码而是授权密码
+    MAIL_PASSWORD = None
+    ADMINS = [None]
