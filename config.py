@@ -24,3 +24,6 @@ class Config(object):
     # 对于163、QQ等邮箱而言，这里的密码不是登录密码而是授权密码
     MAIL_PASSWORD = None
     ADMINS = [None]
+
+    # 是否将日志录入文件(Logging to a file)
+    ENABLE_LOGGING_TO_FILES = False

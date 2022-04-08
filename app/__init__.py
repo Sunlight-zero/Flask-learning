@@ -31,3 +31,17 @@ if app.config['ENABLE_SENDING_ERROR_MAILS']:
     # 设置日志的级别为ERROR
     mail_handler.setLevel(logging.ERROR)
     app.logger.addHandler(mail_handler)
+
+if app.config['ENABLE_LOGGING_TO_FILES']:
+
+    if not os.path.exists('logs'):
+        os.mkdir('logs')
+    file_handler = RotatingFileHandler('logs/paperwarehouse.log', maxBytes=10240, backupCount=10)
+    # setFormatter 可以设置自定义的log格式
+    file_handler.setFormatter(logging.Formatter(
+        '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
+    ))
+    file_handler.setLevel(logging.INFO)
+    app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.INFO)
+    app.logger.info('Paperwarehouse start up')
