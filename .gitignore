@@ -7,3 +7,5 @@ __pycache__
 .vscode
 
 logs/
+# email配置，包含账户密码等信息
+email_config.json

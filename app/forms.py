@@ -50,7 +50,20 @@ class EditProfileForm(FlaskForm):
 class EmptyForm(FlaskForm):
     submit = SubmitField('提交')
 
+
 class PostForm(FlaskForm):
     post = TextAreaField('分享你的心情：', validators=[
         DataRequired(), Length(min=0, max=140)])
     submit = SubmitField('发表博客')
+
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    submit = SubmitField('重置密码')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('新密码', validators=[DataRequired()])
+    repeat_password = PasswordField(
+        '确认密码', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('重置密码')
