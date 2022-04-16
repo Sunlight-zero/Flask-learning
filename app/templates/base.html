@@ -20,14 +20,14 @@
         Paper Warehouse:
         <a href="{{ url_for('index') }}">首页</a>
         {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">登录</a>
+        <a href="{{ url_for('auth.login') }}">登录</a>
         |
-        <a href="{{ url_for('register') }}">注册</a>
+        <a href="{{ url_for('auth.register') }}">注册</a>
         {% else %}
         <a href="{{ url_for('explore') }}">浏览博客</a>
         <span>{{ current_user.username }}</span>
         <a href="{{ url_for('user', username=current_user.username) }}">个人主页</a>
-        <a href="{{ url_for('logout') }}">退出登录</a>
+        <a href="{{ url_for('auth.logout') }}">退出登录</a>
         {% endif %}
         </div>
     <hr />

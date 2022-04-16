@@ -17,17 +17,20 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.localize_callback
-login.login_view = 'login'
+login.login_view = 'auth.login'
 mail = Mail(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 # babel = Babel(app)
 
 from app.errors import bp as errors_bp
+from app.auth import bp as auth_bp
 # 将 blueprint 注册到 app 中
 # 此时所有的视图函数、HTML模板、错误处理器(error handlers)
 # 将与 app 关联
 app.register_blueprint(errors_bp)
+# 使用 url_prefix 参数可以添加前缀，此时应该用 /auth/login.html 访问登录页面
+app.register_blueprint(auth_bp, url_prefix='/auth')
 
 from app import routes, models, localization
 
