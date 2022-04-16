@@ -7,7 +7,7 @@
         </div>
         <div class="post-text">
             <div class="post-time">
-                {{ post.timestamp }}
+                {{ moment(post.timestamp).fromNow() }}
             </div>
             <div class="post-content">
                 {{ post.body }}

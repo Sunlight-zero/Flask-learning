@@ -34,3 +34,6 @@ class Config(object):
     # 是否将日志录入文件(Logging to a file)
     ENABLE_LOGGING_TO_FILES = True
 
+    # # 支持的语言种类
+    # LANGUAGES = ['zh-cn', 'en']
+

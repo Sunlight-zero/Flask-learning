@@ -15,7 +15,9 @@
         {{ form.submit(value="取关") }}
     </form>
     {% endif %}
-    <p>上次登录时间：{{ user.last_seen }}</p>
+    {% if user.last_seen %}
+    <p>上次登录时间：{{ moment(user.last_seen).format('LLL') }}</p>
+    {% endif %}
     <p>个人简介：{{ user.about_me }}</p>
     <p>关注：{{ user.followed.count() }}，粉丝：{{ user.followers.count() }}</p>
     <p>TA的博客：</p>
