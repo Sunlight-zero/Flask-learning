@@ -25,12 +25,14 @@ moment = Moment(app)
 
 from app.errors import bp as errors_bp
 from app.auth import bp as auth_bp
+from app.users import bp as users_bp
 # 将 blueprint 注册到 app 中
 # 此时所有的视图函数、HTML模板、错误处理器(error handlers)
 # 将与 app 关联
 app.register_blueprint(errors_bp)
 # 使用 url_prefix 参数可以添加前缀，此时应该用 /auth/login.html 访问登录页面
 app.register_blueprint(auth_bp, url_prefix='/auth')
+app.register_blueprint(users_bp, url_prefix='/users')
 
 from app import routes, models, localization
 

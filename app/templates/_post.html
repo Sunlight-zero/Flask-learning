@@ -1,7 +1,7 @@
     <div class="post">
         <div class="post-user">
             <img class="post-avatar"/>
-            <a href="{{ url_for('user', username=post.author.username) }}">
+            <a href="{{ url_for('users.main_page', username=post.author.username) }}">
                 {{ post.author.username }}
             </a>
         </div>

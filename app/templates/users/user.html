@@ -3,14 +3,14 @@
 {% block content %}
     <h1>{{ user.username }}的主页</h1>
     {% if user == current_user %}
-    <a href="{{ url_for('edit_profile')}}">修改个人信息</a>
+    <a href="{{ url_for('users.edit_profile')}}">修改个人信息</a>
     {% elif not current_user.is_following(user) %}
-    <form action="{{ url_for('follow', username=user.username) }}" method="post">
+    <form action="{{ url_for('users.follow', username=user.username) }}" method="post">
         {{ form.hidden_tag() }}
         {{ form.submit(value="关注") }}
     </form>
     {% else %}
-    <form action="{{ url_for('unfollow', username=user.username) }}" method="post">
+    <form action="{{ url_for('users.unfollow', username=user.username) }}" method="post">
         {{ form.hidden_tag() }}
         {{ form.submit(value="取关") }}
     </form>
