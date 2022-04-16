@@ -3,26 +3,12 @@
 {% block content %}
     <h1>Hello, {{ current_user.username }}</h1>
     <p>欢迎来到佩帕仓库！</p>
-    {% for post in posts %}
-        {% include "_post.html" %}
-    {% endfor %}
-    {% if prev_url %}
-    <a href="{{ prev_url }}">上一页</a>
-    {% endif %}
-    {% if next_url %}
-    <a href="{{ next_url }}">下一页</a>
-    {% endif %}
-    {% if form %}
-    <form action="" method="post">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.post.label }} <br/>
-            {{ form.post(class="post-textbox") }}<br />
-            {% for error in form.post.errors %}
-            <span class="error-text">{{ error }}</span><br/>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
-    {% endif %}
+    <hr/>
+    <p>新款轻小说推荐</p>
+    <ul>
+        <li>刀剑神域</li>
+        <li>约会大作战</li>
+        <li>欢迎来到实力至上主义的教室</li>
+    </ul>
+    <img src=""/>
 {% endblock %}

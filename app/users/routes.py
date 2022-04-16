@@ -3,7 +3,7 @@ from flask_login import current_user, login_required
 from datetime import datetime
 from app.users import bp
 from app import app, db
-from app.forms import EditProfileForm, EmptyForm
+from app.users.forms import EditProfileForm, EmptyForm
 from app.models import User
 
 @bp.route('main_page/<username>')
@@ -58,10 +58,10 @@ def follow(username):
         user = User.query.filter_by(username=username).first()
         if user is None:
             flash(f'错误：未知用户{username}')
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         if user == current_user:
             flash('错误：不能关注自己')
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         if current_user.is_following(user):
             flash(f'您已经关注过 {username}')
         else:
@@ -69,7 +69,7 @@ def follow(username):
             db.session.commit()
             flash(f'已关注 {username}')
         return redirect(url_for('users.main_page', username=username))
-    return redirect(url_for('index'))
+    return redirect(url_for('main.index'))
 
 @login_required
 @bp.route('/unfollow/<username>', methods=['POST'])
@@ -79,10 +79,10 @@ def unfollow(username):
         user = User.query.filter_by(username=username).first()
         if user is None:
             flash(f'错误：找不到用户 {username}')
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         if user == current_user:
             flash(f'错误：不能关注自己')
-            return redirect(url_for('index'))
+            return redirect(url_for('main.index'))
         if not current_user.is_following(user):
             flash('您尚未关注该用户')
         else:
