@@ -23,7 +23,13 @@ bootstrap = Bootstrap(app)
 moment = Moment(app)
 # babel = Babel(app)
 
-from app import routes, models, localization, errors
+from app.errors import bp as errors_bp
+# 将 blueprint 注册到 app 中
+# 此时所有的视图函数、HTML模板、错误处理器(error handlers)
+# 将与 app 关联
+app.register_blueprint(errors_bp)
+
+from app import routes, models, localization
 
 if app.config['ENABLE_SENDING_ERROR_MAILS']:
     mail_handler = SMTPHandler(
