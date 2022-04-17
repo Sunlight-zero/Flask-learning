@@ -1,8 +1,8 @@
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, current_app
 from flask_login import current_user, login_required
 from datetime import datetime
 from app.users import bp
-from app import app, db
+from app import db
 from app.users.forms import EditProfileForm, EmptyForm
 from app.models import User
 
@@ -12,7 +12,7 @@ def main_page(username):
     user = User.query.filter_by(username=username).first_or_404()
     page = request.args.get('page', 1, int)
     posts = user.posts.paginate(
-        page, app.config['POSTS_PER_PAGE'], False
+        page, current_app.config['POSTS_PER_PAGE'], False
     )
     next_url = url_for('users.main_page', username=username, page=posts.next_num)\
         if posts.has_next else None
